@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en-uk">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <meta name="generator" content="Wowchemy 5.0.0-beta.3 for Hugo" />
+
+    <meta name="author" content="Patrick Saux" />
+
+    <meta
+      name="description"
+      content="Some vacation fun on gambling and martingales."
+    />
+
+    <link
+      rel="alternate"
+      hreflang="en-uk"
+      href="https://sauxpa.github.io/post/astro_2/"
+    />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <meta name="theme-color" content="#795548" />
+
+    <script src="../../js/mathjax-config.js"></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.0/css/academicons.min.css"
+      integrity="sha512-W4yqoT1+8NLkinBLBZko+dFB2ZbHsYLDdr50VElllRcNt2Q4/GSs6u71UHKxB7S6JEMCp5Ve4xjh3eGQl/HRvg=="
+      crossorigin="anonymous"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+      integrity="sha256-FMvZuGapsJLjouA6k7Eo2lusoAX9i0ShlWFG6qt7SLc="
+      crossorigin="anonymous"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/github.min.css"
+      crossorigin="anonymous"
+      title="hl-light"
+      media="print"
+      onload="this.media='all'"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/dracula.min.css"
+      crossorigin="anonymous"
+      title="hl-dark"
+      media="print"
+      onload="this.media='all'"
+      disabled
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.css"
+      integrity="sha512-1xoFisiGdy9nvho8EgXuXvnpR5GAMSjFwp40gSRE3NwdUdIMIKuPa7bqoUhLD0O/5tPNhteAsE5XyyMi5reQVA=="
+      crossorigin="anonymous"
+      media="print"
+      onload="this.media='all'"
+    />
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"
+      integrity=""
+      crossorigin="anonymous"
+      async
+    ></script>
+
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Lora:wght@400;700&family=Roboto:wght@400;700&display=swap&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Lora:wght@400;700&family=Roboto:wght@400;700&display=swap&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+
+    <link
+      rel="stylesheet"
+      href="../../css/wowchemy.d9706dc53855a542de7b58e966a697fb.css"
+    />
+
+    <link
+      rel="icon"
+      type="image/png"
+      href="../../img/favicon/biomedical-fav-icon.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      type="image/png"
+      href="../../img/favicon/biomedical-fav-icon_180sqpx.png"
+    />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://sauxpa.github.io/post/astro_2/"
+        },
+        "headline": "Gambler's ruin in Astro and the accuracy of Gaussian approximation [2]",
+
+        "image": ["https://sauxpa.github.io/post/astro_2/featured.jpg"],
+
+        "datePublished": "2022-09-18T00:00:00Z",
+        "dateModified": "2022-11-14T00:09:48+01:00",
+
+        "author": {
+          "@type": "Person",
+          "name": "Patrick Saux"
+        },
+
+        "publisher": {
+          "@type": "Organization",
+          "name": "Patrick Saux",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://sauxpa.github.io/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_3.png"
+          }
+        },
+        "description": "Some vacation fun on gambling and martingales."
+      }
+    </script>
+
+    <title>
+      Gambler&#39;s ruin in Astro and the accuracy of Gaussian approximation [2]
+      | Vincent N. Ochs
+    </title>
+  </head>
+
+  <body
+    id="top"
+    data-spy="scroll"
+    data-offset="70"
+    data-target="#TableOfContents"
+    class="page-wrapper"
+    data-wc-page-id="ce8cda6425ca51bd32692b8d805cf389"
+  >
+    <script src="/js/wowchemy-init.min.7dc5be8f76e9e1722f142f56fa9d5308.js"></script>
+
+    <aside class="search-modal" id="search">
+      <div class="container">
+        <section class="search-header">
+          <div class="row no-gutters justify-content-between mb-3">
+            <div class="col-6">
+              <h1>Search</h1>
+            </div>
+            <div class="col-6 col-search-close">
+              <a class="js-search" href="#" aria-label="Close"
+                ><i
+                  class="fas fa-times-circle text-muted"
+                  aria-hidden="true"
+                ></i
+              ></a>
+            </div>
+          </div>
+
+          <div id="search-box">
+            <input
+              name="q"
+              id="search-query"
+              placeholder="Search..."
+              autocapitalize="off"
+              autocomplete="off"
+              autocorrect="off"
+              spellcheck="false"
+              type="search"
+              class="form-control"
+              aria-label="Search..."
+            />
+          </div>
+        </section>
+        <section class="section-search-results">
+          <div id="search-hits"></div>
+        </section>
+      </div>
+    </aside>
+
+    <div class="page-header">
+      <nav
+        class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar"
+        id="navbar-main"
+      >
+        <div class="container-xl">
+          <div class="d-none d-lg-inline-flex">
+            <a class="navbar-brand" href="/">Patrick Saux</a>
+          </div>
+
+          <button
+            type="button"
+            class="navbar-toggler"
+            data-toggle="collapse"
+            data-target="#navbar-content"
+            aria-controls="navbar"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span><i class="fas fa-bars"></i></span>
+          </button>
+
+          <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+            <a class="navbar-brand" href="/">Patrick Saux</a>
+          </div>
+
+          <div
+            class="navbar-collapse main-menu-item collapse justify-content-start"
+            id="navbar-content"
+          >
+            <ul class="navbar-nav d-md-inline-flex">
+              <li class="nav-item">
+                <a class="nav-link" href="../../index.html#about"
+                  ><span>Home</span></a
+                >
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="../../research/index.html"
+                  ><span>Research</span></a
+                >
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="../../teaching/index.html"
+                  ><span>Teaching</span></a
+                >
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="../../projects/index.html"
+                  ><span>Projects</span></a
+                >
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="../../talks/index.html"
+                  ><span>Talks</span></a
+                >
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link active" href="../../post/index.html"
+                  ><span>Posts</span></a
+                >
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="../../index.html#contact"
+                  ><span>Contact</span></a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+            <li class="nav-item">
+              <a class="nav-link js-search" href="#" aria-label="Search"
+                ><i class="fas fa-search" aria-hidden="true"></i
+              ></a>
+            </li>
+
+            <li class="nav-item dropdown theme-dropdown">
+              <a
+                href="#"
+                class="nav-link"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-label="Display preferences"
+              >
+                <i class="fas fa-moon" aria-hidden="true"></i>
+              </a>
+              <div class="dropdown-menu">
+                <a href="#" class="dropdown-item js-set-theme-light">
+                  <span>Light</span>
+                </a>
+                <a href="#" class="dropdown-item js-set-theme-dark">
+                  <span>Dark</span>
+                </a>
+                <a href="#" class="dropdown-item js-set-theme-auto">
+                  <span>Automatic</span>
+                </a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <div class="page-body">
+      <article class="article">
+        <div class="article-container pt-3">
+          <h1>
+            Gambler&#39;s ruin in Astro and the accuracy of Gaussian
+            approximation [2]
+          </h1>
+
+          <div class="article-metadata">
+            <div>
+              <span> Patrick Saux</span>
+            </div>
+
+            <span class="article-date"> Last updated on Nov 14, 2022 </span>
+
+            <span class="middot-divider"></span>
+            <span class="article-reading-time"> 5 min read </span>
+
+            <span class="middot-divider"></span>
+            <span class="article-categories">
+              <i class="fas fa-folder mr-1"></i
+            ></span>
+          </div>
+
+          <div class="btn-links mb-3"></div>
+        </div>
+
+        <div
+          class="article-header container featured-image-wrapper mt-4 mb-4"
+          style="max-width: 400px; max-height: 300px"
+        >
+          <div style="position: relative">
+            <img
+              src="../post/astro_2/featured.jpg"
+              alt=""
+              class="featured-image"
+            />
+          </div>
+        </div>
+
+        <div class="article-container">
+          <div class="article-style">
+            <h2 id="assessing-the-quality-of-the-gaussian-approximation">
+              Assessing the quality of the Gaussian approximation
+            </h2>
+            <p>
+              In the previous post, we calculated the distribution of the flight
+              time of the cumulative Gaussian loss process $Z_t=\mu t + \sigma
+              W_t$, that is $\bar{\tau}_{\alpha} = \inf \left\lbrace
+              t\in\mathbb{R}_+, Z_t \geq \alpha \right\rbrace$, and shown that
+              it was equal to the inverse Gaussian distribution
+              $IG\left(\frac{\alpha}{\mu}, \frac{\alpha^2}{\sigma^2}\right)$. In
+              the game of Astro though, the loss distribution for scratching a
+              card is far from Gaussian: it is discrete, asymmetrical, with
+              pronounced skewness towards small losses. The figure below shows
+              the difference between the true Astro distribution (in green) and
+              its Gaussian approximation $\mathcal{N}(\mu, \sigma^2)$ (in blue),
+              with $\mu=0.63$ and $\sigma=20.67$.
+            </p>
+
+            <figure>
+              <div class="d-flex justify-content-center">
+                <div class="w-100">
+                  <img
+                    alt=""
+                    srcset="
+                      ../../post/astro_2/astro_vs_gaussian_distributions_hu72c0f51c5aa2e2c6c44f0c4e9b7d19e8_25858_7947c7dfcc6c3ac0105073d8031c3722.png  400w,
+                      ../../post/astro_2/astro_vs_gaussian_distributions_hu72c0f51c5aa2e2c6c44f0c4e9b7d19e8_25858_a6c83265bff505e2f4d821c3c29f1986.png  760w,
+                      ../../post/astro_2/astro_vs_gaussian_distributions_hu72c0f51c5aa2e2c6c44f0c4e9b7d19e8_25858_1200x1200_fit_lanczos_3.png          1200w
+                    "
+                    src="../../post/astro_2/astro_vs_gaussian_distributions_hu72c0f51c5aa2e2c6c44f0c4e9b7d19e8_25858_7947c7dfcc6c3ac0105073d8031c3722.png"
+                    width="760"
+                    height="339"
+                    loading="lazy"
+                    data-zoomable
+                  />
+                </div>
+              </div>
+            </figure>
+            <p>
+              It is insightful to look at the empirical estimation of $\mu$ and
+              $\sigma$ under both the true Astro model and its Gaussian
+              approximation. We define the standard (unbiased) sample estimators
+              \begin{align*} &amp;\widehat{\mu}_t = \frac{1}{t}\sum_{s=1}^t
+              \xi_s \,,\\<br />
+              &amp;\widehat{\sigma}^2_t = \frac{1}{t-1}\sum_{s=1}^t \left(\xi_s
+              - \widehat{\mu}_t\right)^2 \,, \end{align*} and report below the
+              median (25th - 75th percentile in shaded area) of 10 independent
+              replications of $\widehat{\mu}_t$ and $\widehat{\sigma}_t$ for $t$
+              ranging from 2 to 4,500,000, where $\xi$ is sampled from the Astro
+              distribution (in green) and the Gaussian approximation (in blue).
+            </p>
+
+            <figure>
+              <div class="d-flex justify-content-center">
+                <div class="w-100">
+                  <img
+                    alt=""
+                    srcset="
+                      ../../post/astro_2/mu_sigma_astro_vs_gaussian_distributions_hubeb908b7006fc2257a7621c266e289b1_79434_d70fa162b0026c6d9f7e7fe36cf9d868.png  400w,
+                      ../../post/astro_2/mu_sigma_astro_vs_gaussian_distributions_hubeb908b7006fc2257a7621c266e289b1_79434_8add3d03d48a04eb9acb971018d12892.png  760w,
+                      ../../post/astro_2/mu_sigma_astro_vs_gaussian_distributions_hubeb908b7006fc2257a7621c266e289b1_79434_1200x1200_fit_lanczos_3.png          1200w
+                    "
+                    src="../../post/astro_2/mu_sigma_astro_vs_gaussian_distributions_hubeb908b7006fc2257a7621c266e289b1_79434_d70fa162b0026c6d9f7e7fe36cf9d868.png"
+                    width="496"
+                    height="712"
+                    loading="lazy"
+                    data-zoomable
+                  />
+                </div>
+              </div>
+            </figure>
+            <p>
+              For the mean estimation, as expected, $\widehat{\mu}_t$ converges
+              to the true expected value $\mu=0.63$, with higher dispersion in
+              the Gaussian case. For the variance estimation,
+              $\widehat{\sigma}_t$ seems to converge quite fast to the true
+              value $\sigma=20.67$ in the Gaussian case, but remains much lower
+              in the Astro model until $t\approx 10^5$, before suddenly jumping
+              to values around $\widehat{\sigma}_t\approx 20$. This is actually
+              quite intuitive: the high variance of the Astro distribution is
+              driven by the outlier gains, in particular 1,000 and 25,000, which
+              occur with very small probability. Before $t\approx 10^5$, the
+              samples $\xi_1, \dots, \xi_t$ used in $\widehat{\sigma}_t$ do not
+              contain such outliers, thus estimating a seemingly low variance.
+              In other words, the sample variance in the Astro model is subject
+              to higher variability than in the Gaussian case, which hints at
+              larger higher order moments (skewness, kurtosis&hellip;) in the
+              Astro case. We confirm this intuition with a direct calculation,
+              based on the formulae:
+            </p>
+            <p>
+              \begin{align*} &amp;skewness =
+              \frac{\mathbb{E}\left[\left(\xi-\mu\right)^3\right]}{\sigma^{\frac{3}{2}}}\,,\\<br />
+              &amp;excess\ kurtosis =
+              \frac{\mathbb{E}\left[\left(\xi-\mu\right)^4\right]}{\sigma^{2}} -
+              3\,. \end{align*}
+            </p>
+            <table>
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>$\mu$</th>
+                  <th>$\sigma$</th>
+                  <th>skewness</th>
+                  <th>excess kurtosis</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Astro</td>
+                  <td>0.63</td>
+                  <td>20.67</td>
+                  <td>-1180</td>
+                  <td>1426486</td>
+                </tr>
+                <tr>
+                  <td>Gaussian</td>
+                  <td>0.63</td>
+                  <td>20.67</td>
+                  <td>0</td>
+                  <td>0</td>
+                </tr>
+              </tbody>
+            </table>
+            <h2 id="simulated-flight-time">Simulated flight time</h2>
+            <p>
+              Contrary to the continuous time Gaussian case
+              $\bar{\tau}_{\alpha}$, computing $\tau_{\alpha}=\inf\left\lbrace
+              t\in\mathbb{N}, X_t \geq \alpha\right\rbrace$ in closed-form for
+              the true Astro distribution is a priori intricate. However, it is
+              straightforward to simulate random walks following the Astro
+              distribution and therefore to estimate $\tau_{\alpha}$ by the
+              Monte Carlo method. The result of 100 millions independent
+              replications are reported below against the inverse Gaussian
+              distribution coming from the Gaussian approximation model.
+            </p>
+
+            <figure>
+              <div class="d-flex justify-content-center">
+                <div class="w-100">
+                  <img
+                    alt=""
+                    srcset="
+                      ../../post/astro_2/astro_vs_gaussian_flight_time_distributions_hu7a3a15ba6dace7201dd4329569ad7e76_26354_ae283f78c9470905ef8d476be901d24c.png  400w,
+                      ../../post/astro_2/astro_vs_gaussian_flight_time_distributions_hu7a3a15ba6dace7201dd4329569ad7e76_26354_453a1166625d2185a56f7ab14bb84d34.png  760w,
+                      ../../post/astro_2/astro_vs_gaussian_flight_time_distributions_hu7a3a15ba6dace7201dd4329569ad7e76_26354_1200x1200_fit_lanczos_3.png          1200w
+                    "
+                    src="../../post/astro_2/astro_vs_gaussian_flight_time_distributions_hu7a3a15ba6dace7201dd4329569ad7e76_26354_ae283f78c9470905ef8d476be901d24c.png"
+                    width="496"
+                    height="352"
+                    loading="lazy"
+                    data-zoomable
+                  />
+                </div>
+              </div>
+            </figure>
+            <p>
+              The simulation reveals that the inverse Gaussian approximation
+              underestimates the probability of small flight times and
+              overestimates that of longer ($&gt;100$) flight times. In other
+              words, the inverse Gaussian approximation does not account
+              properly for the high risk of early crash. We report mean,
+              standard deviation and percentiles of $\tau_{\alpha}$ and
+              $\bar{\tau}_{\alpha}$, i.e. under both the simulated Astro and the
+              inverse Gaussian models (95% confidence intervals for the
+              simulated statistics are calculated by bootstrap with 400
+              independent replications).
+            </p>
+            <table>
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>mean</th>
+                  <th>SD</th>
+                  <th>5th</th>
+                  <th>25th</th>
+                  <th>50th</th>
+                  <th>75th</th>
+                  <th>95th</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Astro (simulated) $\tau_{\alpha}$</td>
+                  <td>
+                    3.20 <br />
+                    [3.15 ; 3.27]
+                  </td>
+                  <td>
+                    60.8 <br />
+                    [39.9 ; 78.4]
+                  </td>
+                  <td>
+                    1.0 <br />
+                    [1.0 ; 1.0]
+                  </td>
+                  <td>
+                    1.0 <br />
+                    [1.0 ; 1.0]
+                  </td>
+                  <td>
+                    1.0 <br />
+                    [1.0 ; 1.0]
+                  </td>
+                  <td>
+                    2.0 <br />
+                    [2.0 ; 2.0]
+                  </td>
+                  <td>
+                    11.0 <br />
+                    [11.0 ; 11.0]
+                  </td>
+                </tr>
+                <tr>
+                  <td>IG approximation $\bar{\tau}_{\alpha}$</td>
+                  <td>3.17</td>
+                  <td>58.46</td>
+                  <td>0.00</td>
+                  <td>0.01</td>
+                  <td>0.02</td>
+                  <td>0.09</td>
+                  <td>2.14</td>
+                </tr>
+              </tbody>
+            </table>
+            <p>
+              The expectation and variance of $\tau_{\alpha}$ are, perhaps
+              surprisingly, well estimated in the inverse Gaussian model; in
+              fact, it is statistically plausible that
+              $\mathbb{E}\left[\tau_{\alpha}\right] =
+              \mathbb{E}\left[\bar{\tau}_{\alpha}\right]$ ($3.17 \in [3.15 ;
+              3.27]$) and $\mathbb{V}\left[\tau_{\alpha}\right] =
+              \mathbb{V}\left[\bar{\tau}_{\alpha}\right]$ ($58.46\in [39.9 ;
+              78.4]$). This is actually somewhat intuitive: remember the
+              expectation of $IG\left(\frac{\alpha}{\mu},
+              \frac{\alpha^2}{\sigma^2}\right)$ is $\frac{\alpha}{\mu}$, which
+              depends only on the threshold $\alpha$ and the expectation $\mu$
+              of the Astro random walk, <em>not</em> on higher moments which are
+              crucially underestimated by the Gaussian approximation. On the
+              contrary, quantiles are poorly estimated by the Gaussian model,
+              partly because of the continuous time (quantiles in the discrete
+              time Astro model cannot be less than 1, whereas the inverse
+              Gaussian distribution puts a lot of mass on $[0, 1]$).
+            </p>
+            <h2 id="conclusion">Conclusion</h2>
+            <p>
+              The inverse Gaussian approximation based on continuous time
+              martingale arguments offers an analytical expression that tracks
+              quite accurately the expected flight time of scratching Astro
+              cards. In a sense, this is an empirical manifestation of the
+              ubiquitous property that Gaussian distributions are limits of
+              distributions with finite variance (central limit theorem,
+              Donsker&rsquo;s theorem on random walks&hellip;). This sort of
+              approximation is numerically consistent in expectation. but much
+              less so for other statistics, e.g. the quantiles. Moreover,
+              let&rsquo;s emphasise again the difference in interpretation
+              between mean and median: the expected flight time
+              $\mathbb{E}\left[\tau_{\alpha}\right]\approx 3.17$ is driven
+              upwards by unlikely events of large magnitude; the most likely
+              outcome of scratching Astro cards is to loose 2€ all at once!
+            </p>
+            <p>
+              Finally, you may check out the code used for the simulation and
+              figures in this
+              <a
+                href="https://github.com/sauxpa/astro"
+                target="_blank"
+                rel="noopener"
+                >repo</a
+              >.
+            </p>
+            <h2 id="whats-next">What&rsquo;s next?</h2>
+            <p>
+              Is this the best we can do? It turns out that the Astro random
+              walk is actually a special case where the martingale arguments
+              developed for the inverse Gaussian approximation do hold in
+              discrete time! We will detail this in the next post and derive in
+              particular the exact expression of
+              $\mathbb{E}\left[\tau_{\alpha}\right]$. Spoiler: the inverse
+              Gaussian approximation was indeed not so bad in expectation!
+            </p>
+            <h2 id="bonus">Bonus</h2>
+            <p>
+              In this first post, we mentioned a subtlety of the sampling
+              mechanism in Astro: bought tickets are effectively removed from
+              the pool of available tickets, and therefore sampling from the
+              Astro distribution should be done without replacement. Intuitively
+              though, this should be negligible since the typical flight time is
+              much smaller than the total amount of tickets (4,500,000). To
+              convince ourselves, we report below figures on mean and variance
+              estimation as well as the distribution of flight time under
+              sampling with no replacement (nr) and visually verify that they
+              are similar to their counterparts with replacement.
+            </p>
+
+            <figure>
+              <div class="d-flex justify-content-center">
+                <div class="w-100">
+                  <img
+                    alt=""
+                    srcset="
+                      ../../post/astro_2/mu_sigma_astro_nr_vs_gaussian_distributions_hubffa187233cffa206f1dccea7fc6819d_90300_1e474d5bb1441cc5c6d71ae7c9174fcb.png  400w,
+                      ../../post/astro_2/mu_sigma_astro_nr_vs_gaussian_distributions_hubffa187233cffa206f1dccea7fc6819d_90300_4b4f99c17fea06e30f82fd4994692b56.png  760w,
+                      ../../post/astro_2/mu_sigma_astro_nr_vs_gaussian_distributions_hubffa187233cffa206f1dccea7fc6819d_90300_1200x1200_fit_lanczos_3.png          1200w
+                    "
+                    src="../../post/astro_2/mu_sigma_astro_nr_vs_gaussian_distributions_hubffa187233cffa206f1dccea7fc6819d_90300_1e474d5bb1441cc5c6d71ae7c9174fcb.png"
+                    width="496"
+                    height="712"
+                    loading="lazy"
+                    data-zoomable
+                  />
+                </div>
+              </div>
+            </figure>
+
+            <figure>
+              <div class="d-flex justify-content-center">
+                <div class="w-100">
+                  <img
+                    alt=""
+                    srcset="
+                      ../../post/astro_2/astro_nr_vs_gaussian_flight_time_distributions_hudfd307929da19b9b32cac73cce6199e6_29446_93cbdc9d6f75da628da6f0744fe323ff.png  400w,
+                      ../../post/astro_2/astro_nr_vs_gaussian_flight_time_distributions_hudfd307929da19b9b32cac73cce6199e6_29446_d264fe087a62b2c835893434bd37a64c.png  760w,
+                      ../../post/astro_2/astro_nr_vs_gaussian_flight_time_distributions_hudfd307929da19b9b32cac73cce6199e6_29446_1200x1200_fit_lanczos_3.png          1200w
+                    "
+                    src="../../post/astro_2/astro_nr_vs_gaussian_flight_time_distributions_hudfd307929da19b9b32cac73cce6199e6_29446_93cbdc9d6f75da628da6f0744fe323ff.png"
+                    width="496"
+                    height="352"
+                    loading="lazy"
+                    data-zoomable
+                  />
+                </div>
+              </div>
+            </figure>
+            <p>Cheers!</p>
+            <p>
+              P.S: kudos to
+              <a href="#" rel="noopener">Pierre Bauvin</a>
+              for proofreading and for asking that I write it all down in the
+              first place!
+            </p>
+            <h2 id="license">License</h2>
+            <p>
+              Copyright 2022 - present
+              <a href="#" rel="noopener">Vincent N. Ochs</a>.
+            </p>
+          </div>
+
+          <div class="article-container">
+            <div class="article-style"></div>
+
+            <div class="share-box" aria-hidden="true">
+              <ul class="share">
+                <li>
+                  <a
+                    href="#"
+                    target="_blank"
+                    rel="noopener"
+                    class="share-btn-twitter"
+                  >
+                    <i class="fab fa-twitter"></i>
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="#"
+                    target="_blank"
+                    rel="noopener"
+                    class="share-btn-facebook"
+                  >
+                    <i class="fab fa-facebook"></i>
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="#"
+                    target="_blank"
+                    rel="noopener"
+                    class="share-btn-email"
+                  >
+                    <i class="fas fa-envelope"></i>
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="#"
+                    target="_blank"
+                    rel="noopener"
+                    class="share-btn-linkedin"
+                  >
+                    <i class="fab fa-linkedin-in"></i>
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="#"
+                    target="_blank"
+                    rel="noopener"
+                    class="share-btn-whatsapp"
+                  >
+                    <i class="fab fa-whatsapp"></i>
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="#"
+                    target="_blank"
+                    rel="noopener"
+                    class="share-btn-weibo"
+                  >
+                    <i class="fab fa-weibo"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="article-widget content-widget-hr">
+            <h3>Related</h3>
+            <ul>
+              <li>
+                <a href="../../post/astro_3/index.html"
+                  >Gambler&#39;s ruin in Astro and the accuracy of Gaussian
+                  approximation [3]</a
+                >
+              </li>
+
+              <li>
+                <a href="../../post/astro_1/index.html"
+                  >Gambler&#39;s ruin in Astro and the accuracy of Gaussian
+                  approximation [1]</a
+                >
+              </li>
+
+              <li>
+                <a href="../../post/interview_b4h/index.html"
+                  >Machine learning to personalise patient follow-up after
+                  obesity surgery (in French)</a
+                >
+              </li>
+
+              <li>
+                <a href="../../post/markov_epidemic/index.html"
+                  >Markov Epidemic, a stochastic model for disease outbreak</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="page-footer">
+      <div class="container">
+        <footer class="site-footer">
+          <p id="copyright">
+            <script>
+              document.getElementById(
+                "copyright"
+              ).textContent = `© ${new Date().getFullYear()} Vincent N. Ochs`;
+            </script>
+          </p>
+        </footer>
+      </div>
+    </div>
+
+    <div id="modal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Cite</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <pre><code class="tex hljs"></code></pre>
+          </div>
+          <div class="modal-footer">
+            <a
+              class="btn btn-outline-primary my-1 js-copy-cite"
+              href="#"
+              target="_blank"
+            >
+              <i class="fas fa-copy"></i> Copy
+            </a>
+            <a
+              class="btn btn-outline-primary my-1 js-download-cite"
+              href="#"
+              target="_blank"
+            >
+              <i class="fas fa-download"></i> Download
+            </a>
+            <div id="modal-error"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+      integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/instant.page/5.1.0/instantpage.min.js"
+      integrity="sha512-1+qUtKoh9XZW7j+6LhRMAyOrgSQKenQ4mluTR+cvxXjP1Z54RxZuzstR/H9kgPXQsVB8IW7DMDFUJpzLjvhGSQ=="
+      crossorigin="anonymous"
+    ></script>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js"
+      integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js"
+      integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI="
+      crossorigin="anonymous"
+    ></script>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/highlight.min.js"
+      integrity="sha512-TDKKr+IvoqZnPzc3l35hdjpHD0m+b2EC2SrLEgKDRWpxf2rFCxemkgvJ5kfU48ip+Y+m2XVKyOCD85ybtlZDmw=="
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/r.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/python.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/latex.min.js"></script>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.js"
+      integrity="sha512-SeiQaaDh73yrb56sTW/RgVdi/mMqNeM2oBwubFHagc5BkixSpP1fvqF47mKzPGWYSSy4RwbBunrJBQ4Co8fRWA=="
+      crossorigin="anonymous"
+    ></script>
+
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+        <div class="search-hit-content">
+          <div class="search-hit-name">
+            <a href="{{relpermalink}}">{{title}}</a>
+            <div class="article-metadata search-hit-type">{{type}}</div>
+            <p class="search-hit-description">{{snippet}}</p>
+          </div>
+        </div>
+      </div>
+    </script>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js"
+      integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js"
+      integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U="
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="../../js/bootstrap.bundle.min.6aed84840afc03ab4d5750157f69c120.js"></script>
+
+    <script src="../../en/js/wowchemy.min.584d94c9f7b603dd098d1d9ca46f2ce9.js"></script>
+  </body>
+</html>
